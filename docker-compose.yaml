@@ -4,3 +4,7 @@ services:
             comntainer_name: 69-s3-db
             ports:
                   - 54327:5432
+            environment:
+                  - POSTGRES_PASSWORD=1p@ssw0rd
+                  - POSTGRES_USER=danupong
+                  - POSTGRES_DB=danupong
