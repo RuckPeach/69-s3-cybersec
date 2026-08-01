@@ -1,10 +1,10 @@
 services:
-         db:
-            image: postgres:16-alpine
-            comntainer_name: 69-s3-db
-            ports:
-                  - 54327:5432
-            environment:
-                  - POSTGRES_PASSWORD=1p@ssw0rd
-                  - POSTGRES_USER=danupong
-                  - POSTGRES_DB=danupong
+  db:
+    image: postgres:16-alpine
+    container_name: 69-s3-db
+    ports:
+      - "54327:5432"
+    environment:
+      - POSTGRES_PASSWORD=1p@ssw0rd
+      - POSTGRES_USER=danupong
+      - POSTGRES_DB=danupong
