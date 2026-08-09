@@ -21,3 +21,16 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin123
     volumes:
       - C:/Users/Danup/69-s3-cybersec-databackup/pgadmin:/var/lib/pgadmin
+
+  app:
+    image: prawee/strapi
+    container_name: my_app
+    ports:
+      - "8080:1337"
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_NAME: danupong
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: danupong
+      DATABASE_PASSWORD: 1p@ssw0rd
