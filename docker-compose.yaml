@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER=${DATABASE_USERNAME}
       - POSTGRES_DB=${DATABASE_NAME}
     volumes:
-      - ***REDACTED***/postgres:/var/lib/postgresql/data
+      - ./backup/postgres:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4:9.16
@@ -20,13 +20,13 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     volumes:
-      - ***REDACTED***/pgadmin:/var/lib/pgadmin
+      - ./backup/pgadmin:/var/lib/pgadmin
 
   app:
     image: prawee/strapi
     container_name: 69-s3-app
     ports:
-      - "9093:1337"
+      - "9093:1337" 
     environment:
       DATABASE_CLIENT: ${DATABASE_CLIENT}
       DATABASE_NAME: ${DATABASE_NAME}
@@ -34,3 +34,5 @@ services:
       DATABASE_PORT: ${DATABASE_PORT}
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - ./backup/app:/opt/app
