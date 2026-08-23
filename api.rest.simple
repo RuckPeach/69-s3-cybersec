@@ -1,13 +1,23 @@
 # REST
 
-###login
+###login(ADMIN)
 POST http://localhost:9093/admin/login
 Content-Type: application/json
 
 {
   "email": "",
   "password": "",
-  "rememberMe": 
+  "rememberMe": true
+}
+
+###login(USER)
+POST http://localhost:9093/api/auth/local
+Content-Type: application/json
+
+{
+  "identifier": "",
+  "password": "",
+  "rememberMe": true
 }
 
 
@@ -23,7 +33,7 @@ Content-Type: application/json
 
 
 ###Forgot
-POST http://localhost:9093/admin/forgot-password
+POST http://localhost:9093/api/auth/local/register
 Content-Type: application/json
 
 {
