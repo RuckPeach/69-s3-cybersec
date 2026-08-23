@@ -1,0 +1,45 @@
+# REST
+
+###login
+POST http://localhost:9093/admin/login
+Content-Type: application/json
+
+{
+  "email": "",
+  "password": "",
+  "rememberMe": 
+}
+
+
+###Signup
+POST http://localhost:9093/api/auth/register-admin
+Content-Type: application/json
+
+{
+  "username": "",
+  "email": "",
+  "password": ""
+}
+
+
+###Forgot
+POST http://localhost:9093/admin/forgot-password
+Content-Type: application/json
+
+{
+  "email": ""
+}
+
+
+###Profile
+PUT http://localhost:9093/admin/users/me
+Content-Type: application/json
+Authorization: 
+
+{
+  "email": "",
+  "firstname": "",
+  "lastname": "",
+  "preferedLanguage": ,
+  "username": 
+}
