@@ -1,6 +1,8 @@
 # REST
 
-###login(ADMIN)
+## Admin Section///////////////////////////////////////////////////////////
+
+###login
 POST http://localhost:9093/admin/login
 Content-Type: application/json
 
@@ -10,9 +12,39 @@ Content-Type: application/json
   "rememberMe": true
 }
 
+###Signup
+//400 Bad Request Only 1 Super Admin 
+POST http://localhost:9093/admin/register-admin
+Content-Type: application/json
+
+{
+  "email": "",
+  "firstname": "",
+  "lastname": "",
+  "password": ""
+}
+
+###Forgot Password
+POST http://localhost:9093/admin/forgot-password
+Content-Type: application/json
+
+{
+  "email": ""
+}
+
+###Profile
+GET http://localhost:9093/admin/users/me 
+Content-Type: application/json
+Authorization: Bearer <Token>
+
+{
+
+}
 
 
-###login(USER)
+## User Section///////////////////////////////////////////////////////
+
+###login
 POST http://localhost:9093/api/auth/local
 Content-Type: application/json
 
@@ -21,8 +53,6 @@ Content-Type: application/json
   "password": "",
   "rememberMe": true
 }
-
-
 
 ###Signup
 POST http://localhost:9093/api/auth/local/register
@@ -34,24 +64,19 @@ Content-Type: application/json
   "password": ""
 }
 
-
 ###Forgot Password
-POST http://localhost:9093/admin/forgot-password
+POST http://localhost:9093/api/auth/forgot-password
 Content-Type: application/json
 
 {
   "email": ""
 }
 
-
 ###Profile
-PUT http://localhost:9093/admin/users/me
+GET http://localhost:9093/api/users/me
 Content-Type: application/json
-Authorization: 
+Authorization: Bearer <Token>
 
 {
-  "email": "",
-  "firstname": "",
-  "lastname": "",
-  "username": 
+ 
 }
