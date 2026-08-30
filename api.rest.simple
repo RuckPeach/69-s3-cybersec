@@ -37,9 +37,7 @@ GET http://localhost:9093/admin/users/me
 Content-Type: application/json
 Authorization: Bearer <Token>
 
-{
 
-}
 
 
 ## User Section///////////////////////////////////////////////////////
@@ -77,6 +75,4 @@ GET http://localhost:9093/api/users/me
 Content-Type: application/json
 Authorization: Bearer <Token>
 
-{
- 
-}
+
