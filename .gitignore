@@ -1,3 +1,27 @@
+# Secrets & Environment
 .env
+.env.*
+!.env.simple
+!.env.example
+
+# Data & Backups
 backup/
+
+# API test files with credentials
 api.rest
+
+# Certificates & Keys
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.pfx
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db

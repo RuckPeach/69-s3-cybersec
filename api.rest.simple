@@ -1,78 +1,126 @@
-# REST
 
-## Admin Section///////////////////////////////////////////////////////////
+@host = {{$dotenv TEST_HOST}}
 
-###login
-POST http://localhost:9093/admin/login
+# Admin Credentials
+@admin_email = {{$dotenv TEST_ADMIN_EMAIL}}
+@admin_password = {{$dotenv TEST_ADMIN_PASSWORD}}
+
+# User Credentials
+@user_identifier = {{$dotenv TEST_USER_IDENTIFIER}}
+@user_email = {{$dotenv TEST_USER_EMAIL}}
+@user_username = {{$dotenv TEST_USER_USERNAME}}
+@user_password = {{$dotenv TEST_USER_PASSWORD}}
+
+#Tokens ที่ได้จาก login response
+@admin_token = {{$dotenv TEST_ADMIN_TOKEN}}
+@user_token = {{$dotenv TEST_USER_TOKEN}}
+
+#Admin Password Reset
+@admin_reset_code = {{$dotenv TEST_ADMIN_RESET_CODE}}
+@admin_new_password = {{$dotenv TEST_ADMIN_NEW_PASSWORD}}
+
+#User Password Reset
+@user_reset_code = {{$dotenv TEST_USER_RESET_CODE}}
+@user_new_password = {{$dotenv TEST_USER_NEW_PASSWORD}}
+
+
+
+
+###########################################################################
+# ADMIN SECTION
+###########################################################################
+
+### Admin Login
+POST {{host}}/admin/login
 Content-Type: application/json
 
 {
-  "email": "",
-  "password": "",
+  "email": "{{admin_email}}",
+  "password": "{{admin_password}}",
   "rememberMe": true
 }
 
-###Signup
-//400 Bad Request Only 1 Super Admin 
-POST http://localhost:9093/admin/register-admin
+### Admin Signup
+# 400 Bad Request Only 1 Super Admin
+POST {{host}}/admin/register-admin
 Content-Type: application/json
 
 {
-  "email": "",
+  "email": "{{admin_email}}",
   "firstname": "",
   "lastname": "",
-  "password": ""
+  "password": "{{admin_password}}"
 }
 
-###Forgot Password
-POST http://localhost:9093/admin/forgot-password
+### Admin Forgot Password
+POST {{host}}/admin/forgot-password
 Content-Type: application/json
 
 {
-  "email": ""
+  "email": "{{admin_email}}"
 }
 
-###Profile
-GET http://localhost:9093/admin/users/me 
-Content-Type: application/json
-Authorization: Bearer <Token>
-
-
-
-
-## User Section///////////////////////////////////////////////////////
-
-###login
-POST http://localhost:9093/api/auth/local
+### Admin Reset Password
+POST {{host}}/admin/reset-password
 Content-Type: application/json
 
 {
-  "identifier": "",
-  "password": "",
+  "password": "{{admin_new_password}}",
+  "passwordConfirmation": "{{admin_new_password}}",
+  "code": "{{admin_reset_code}}"
+}
+
+### Admin Profile
+GET {{host}}/admin/users/me
+Content-Type: application/json
+Authorization: Bearer {{admin_token}}
+
+
+
+
+###########################################################################
+# USER SECTION
+###########################################################################
+
+### User Login
+POST {{host}}/api/auth/local
+Content-Type: application/json
+
+{
+  "identifier": "{{user_identifier}}",
+  "password": "{{user_password}}",
   "rememberMe": true
 }
 
-###Signup
-POST http://localhost:9093/api/auth/local/register
+### User Signup
+POST {{host}}/api/auth/local/register
 Content-Type: application/json
 
 {
-  "username": "",
-  "email": "",
-  "password": ""
+  "username": "{{user_username}}",
+  "email": "{{user_email}}",
+  "password": "{{user_password}}"
 }
 
-###Forgot Password
-POST http://localhost:9093/api/auth/forgot-password
+### User Forgot Password
+POST {{host}}/api/auth/forgot-password
 Content-Type: application/json
 
 {
-  "email": ""
+  "email": "{{user_email}}"
 }
 
-###Profile
-GET http://localhost:9093/api/users/me
+### User Reset Password
+POST {{host}}/api/auth/reset-password
 Content-Type: application/json
-Authorization: Bearer <Token>
 
+{
+  "password": "{{user_new_password}}",
+  "passwordConfirmation": "{{user_new_password}}",
+  "code": "{{user_reset_code}}"
+}
 
+### User Profile
+GET {{host}}/api/users/me
+Content-Type: application/json
+Authorization: Bearer {{user_token}}
