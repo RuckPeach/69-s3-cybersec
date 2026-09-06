@@ -1,7 +1,12 @@
+networks:
+  frontend:
+  backend:
+
 services:
   db:
     image: postgres:16-alpine
     container_name: 69-s3-db
+    restart: unless-stopped
     ports:
       - "127.0.0.1:${DB_EXTERNAL_PORT:-54327}:5432"
     environment:
@@ -10,10 +15,18 @@ services:
       - POSTGRES_DB=${DATABASE_NAME}
     volumes:
       - ./backup/postgres:/var/lib/postgresql/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME:-danupong} -d ${DATABASE_NAME:-danupong}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   pgadmin:
     image: dpage/pgadmin4:9.16
     container_name: 69-s3-admin
+    restart: unless-stopped
     ports:
       - "127.0.0.1:${PGADMIN_EXTERNAL_PORT:-8083}:80"
     environment:
@@ -21,12 +34,15 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     volumes:
       - ./backup/pgadmin:/var/lib/pgadmin
+    networks:
+      - backend
 
   app:
     image: prawee/strapi
     container_name: 69-s3-app
+    restart: unless-stopped
     ports:
-      - "${APP_EXTERNAL_PORT:-9093}:1337" 
+      - "127.0.0.1:${APP_EXTERNAL_PORT:-9093}:1337" 
     environment:
       DATABASE_CLIENT: ${DATABASE_CLIENT}
       DATABASE_NAME: ${DATABASE_NAME}
@@ -42,3 +58,9 @@ services:
       JWT_SECRET: ${JWT_SECRET}
     volumes:
       - ./backup/app:/opt/app
+    networks:
+      - frontend
+      - backend
+    depends_on:
+      db:
+        condition: service_healthy
